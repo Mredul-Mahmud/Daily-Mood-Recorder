@@ -8,7 +8,7 @@
 
 <h1>Edit Mood Record</h1>
 
-<form action="{{ route('mood.update', $mood->id) }}" method="POST">
+<form action="{{route('mood.update', $mood->id)}}" method="POST">
     @csrf
     <p>
         <strong>Mood:</strong> {{ ucfirst($mood->moodState) }}<br>
@@ -16,7 +16,7 @@
     </p><br>
     <div style="color: red;font-size: 0.9rem;">
         <p style="color: red;font-size: 0.9rem;">You can only update your Short Note</p>
-         <p style="color: red;font-size: 0.9rem;">*If your mood changes you may also note it here</p>
+         <p style="color: red;font-size: 0.9rem;">*You may want to make a note if your mood changes</p>
     </div>
     
 
