@@ -20,12 +20,15 @@
             <option value="anxious">Anxious</option>
         </select>
         <br/><br/>
-        <label for="note">Short Note:</label><br/>
+        <label for="note">Add a short Note:</label><br/>
         <textarea name="note" id="note" rows="4" cols="50" placeholder="Write a short note..."></textarea>
 
         <br/><br/>
 
         <button type="submit">Save Record</button>
     </form>
+    <div>
+        <a href="{{route('dashboard')}}">Return to home</a>
+    </div>
 </body>
 </html>
