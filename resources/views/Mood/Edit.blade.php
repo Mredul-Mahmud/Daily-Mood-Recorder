@@ -16,6 +16,7 @@
     </p><br>
     <div style="color: red;font-size: 0.9rem;">
         <p style="color: red;font-size: 0.9rem;">You can only update your Short Note</p>
+         <p style="color: red;font-size: 0.9rem;">*If your mood changes you may also note it here</p>
     </div>
     
 
