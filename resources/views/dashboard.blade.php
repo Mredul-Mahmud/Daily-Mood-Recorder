@@ -21,9 +21,14 @@
                 @endif
                 </div><br>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <a href="{{ route('mood.all') }}">View My Mood Records</a>
+                    <a href="{{ route('mood.all') }}">View My Mood Records</a><br><br>
 
-                </div>    
+                </div>   <br>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <a href="{{ route('trash') }}">Trash/Bin</a> 
+            </div><br>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <a href="{{ route('mood.weeklychart') }}">Chart</a> 
             </div>
         </div>
     </div>

@@ -115,5 +115,10 @@
         <a href="{{route('moodOfMonth')}}">
         <button type="button">Your Mood Of The Month</button></a>
 
+        <a href="{{route('mood.downloadRecord')}}"><br><br>
+    <button type="button">Download Mood Entries info</button>
+</a>
+
+
 </body>
 </html>

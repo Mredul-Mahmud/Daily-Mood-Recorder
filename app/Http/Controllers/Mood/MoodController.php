@@ -7,6 +7,7 @@ use App\Models\Mood;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use PDF; 
 //use App\Models\User;
 
 
@@ -26,7 +27,7 @@ class MoodController extends Controller
         }
 
         $dates = $moods->pluck('created_at')->map(function($dt) {
-            return \Carbon\Carbon::parse($dt)->startOfDay();
+            return Carbon::parse($dt)->startOfDay();
         });
 
         for($i = 0; $i < 2; $i++)
@@ -44,7 +45,7 @@ class MoodController extends Controller
         $dates = Mood::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->pluck('created_at')
-            ->map(fn($dt) => \Carbon\Carbon::parse($dt)->startOfDay())
+            ->map(fn($dt) => Carbon::parse($dt)->startOfDay())
             ->unique();
 
         if($dates->isEmpty())
@@ -57,7 +58,8 @@ class MoodController extends Controller
 
         foreach ($dates as $date)
         {
-            if ($date->equalTo($expectedDate)) {
+            if ($date->equalTo($expectedDate))
+            {
                 $streak++;
                 $expectedDate->subDay();
             } else {
@@ -107,10 +109,10 @@ class MoodController extends Controller
             $userId = Auth::id();
             $streakLength = $this->getCurrentStreakLength($userId);
 
-    return view('Mood.AllRecords', [
-        'moods' => $moods,
-        'streakLength' => $streakLength,
-    ]);
+            return view('Mood.AllRecords', [
+            'moods' => $moods,
+            'streakLength' => $streakLength,
+        ]);
     }
     //edit a mood status entry
     public function editRecord($id)
@@ -180,15 +182,15 @@ class MoodController extends Controller
 
         if ($startDate)
         {
-        $query->whereDate('created_at', '>=', $startDate);
+            $query->whereDate('created_at', '>=', $startDate);
         }
 
         if ($endDate)
         {
-        $query->whereDate('created_at', '<=', $endDate);
+            $query->whereDate('created_at', '<=', $endDate);
         }
 
-        $moods = $query->latest()->get();
+            $moods = $query->latest()->get();
 
         return view('Mood.AllRecords', [
             'moods' => $moods,
@@ -242,6 +244,39 @@ class MoodController extends Controller
         ]);
     }
 
+    //Use Chart.js to render barchart
+    public function weeklyChart()
+    {
+        $user = Auth::user();
 
+        $startDate = Carbon::now()->subDays(7)->startOfDay();
+
+        $moodCounts = Mood::where('user_id', $user->id)
+            ->where('created_at', '>=', $startDate)
+            ->selectRaw('moodState, COUNT(*) as count')
+            ->groupBy('moodState')
+            ->pluck('count', 'moodState')
+            ->toArray();
+
+        $moods = ['Happy', 'Sad', 'Angry', 'Excited', 'Anxious'];
+        $counts = [];
+        foreach($moods as $mood)
+        {
+            $counts[$mood] = $moodCounts[$mood] ?? 0;
+        }
+        return view('Mood.WeeklyStat', compact('counts'));
+    }
+
+    //Download pdf of records functionality
+    public function downloadEntries()
+    {
+        $user = auth()->user();
+        $moods = Mood::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $pdf = PDF::loadView('Mood.RecordPdf', compact('moods', 'user'));
+        return $pdf->download('mood-record.pdf');
+    }
 
 }

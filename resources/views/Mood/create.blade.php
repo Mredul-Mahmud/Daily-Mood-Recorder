@@ -26,9 +26,9 @@
         <br/><br/>
 
         <button type="submit">Save Record</button>
-    </form>
+    </form><br>
     <div>
-        <a href="{{route('dashboard')}}">Return to home</a>
+        <a href="{{route('dashboard')}}"><button>Return to home</button></a>
     </div>
 </body>
 </html>

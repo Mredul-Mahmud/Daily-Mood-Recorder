@@ -30,5 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/mood/{id}/detail', [MoodController::class, 'moodDetails'])->name('mood.details');
 
     Route::get('/mood/moodofmonth', [MoodController::class, 'moodOfMonth'])->name('moodOfMonth');
+
+    Route::get('/mood/weeklychart', [MoodController::class, 'weeklyChart'])->name('mood.weeklychart');
+    Route::get('/mood/download-record',[MoodController::class, 'downloadEntries'])->name('mood.downloadRecord');
+
 });
 require __DIR__.'/auth.php';
