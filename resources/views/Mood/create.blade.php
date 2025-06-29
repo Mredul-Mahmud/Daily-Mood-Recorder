@@ -13,11 +13,11 @@
         <label for="moodState">Mood:</label>
         <select name="moodState" id="moodState" required>
             <option value="">Select Mood</option>
-            <option value="happy">Happy</option>
-            <option value="sad">Sad</option>
-            <option value="angry">Angry</option>
-            <option value="excited">Excited</option>
-            <option value="anxious">Anxious</option>
+            <option value="Happy">Happy</option>
+            <option value="Sad">Sad</option>
+            <option value="Angry">Angry</option>
+            <option value="Excited">Excited</option>
+            <option value="Anxious">Anxious</option>
         </select>
         <br/><br/>
         <label for="note">Add a short Note:</label><br/>

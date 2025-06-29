@@ -42,6 +42,6 @@
     @endif
 
     <br>
-    <a href="{{route('mood.all')}}">Back to All Records</a>
+    <a href="{{route('mood.all')}}"><button>Back to All Records</button></a>
 </body>
 </html>
