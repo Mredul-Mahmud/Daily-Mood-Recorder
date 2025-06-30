@@ -13,62 +13,6 @@ use PDF;
 
 class MoodController extends Controller
 {
-    //Streak Functionality
-    private function hasThreeDayStreak($userId)
-    {
-        $moods = Mood::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->take(3)
-            ->get();
-
-        if($moods->count() < 3)
-        {
-            return false;
-        }
-
-        $dates = $moods->pluck('created_at')->map(function($dt) {
-            return Carbon::parse($dt)->startOfDay();
-        });
-
-        for($i = 0; $i < 2; $i++)
-        {
-            $expectedDate = $dates[$i]->copy()->subDay();
-            if(!$dates[$i + 1]->isSameDay($expectedDate))
-            {
-                return false;
-            }
-        }
-            return true;
-    }
-    private function getCurrentStreakLength($userId)
-    {
-        $dates = Mood::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->pluck('created_at')
-            ->map(fn($dt) => Carbon::parse($dt)->startOfDay())
-            ->unique();
-
-        if($dates->isEmpty())
-        {
-            return 0;
-        }
-
-        $streak = 0;
-        $expectedDate = now()->startOfDay();
-
-        foreach ($dates as $date)
-        {
-            if ($date->equalTo($expectedDate))
-            {
-                $streak++;
-                $expectedDate->subDay();
-            } else {
-            break;
-            }
-        }
-         return $streak;
-    }   
-
     //create a mood entry
     public function create()
     {
@@ -265,6 +209,62 @@ class MoodController extends Controller
             $counts[$mood] = $moodCounts[$mood] ?? 0;
         }
         return view('Mood.WeeklyStat', compact('counts'));
+    }
+
+    //Streak Functionality
+    private function hasThreeDayStreak($userId)
+    {
+        $moods = Mood::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        if($moods->count() < 3)
+        {
+            return false;
+        }
+
+        $dates = $moods->pluck('created_at')->map(function($dt) {
+            return Carbon::parse($dt)->startOfDay();
+        });
+
+        for($i = 0; $i < 2; $i++)
+        {
+            $expectedDate = $dates[$i]->copy()->subDay();
+            if(!$dates[$i + 1]->isSameDay($expectedDate))
+            {
+                return false;
+            }
+        }
+            return true;
+    }
+    private function getCurrentStreakLength($userId)
+    {
+        $dates = Mood::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->pluck('created_at')
+            ->map(fn($dt) => Carbon::parse($dt)->startOfDay())
+            ->unique();
+
+        if($dates->isEmpty())
+        {
+            return 0;
+        }
+
+        $streak = 0;
+        $expectedDate = now()->startOfDay();
+
+        foreach ($dates as $date)
+        {
+            if ($date->equalTo($expectedDate))
+            {
+                $streak++;
+                $expectedDate->subDay();
+            } else {
+            break;
+            }
+        }
+         return $streak;
     }
 
     //Download pdf of records functionality

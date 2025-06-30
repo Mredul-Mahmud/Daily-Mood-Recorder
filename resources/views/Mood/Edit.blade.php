@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Edit Mood Record</title>
 </head>
 <body>
+    <div class="container mt-4">
+
 
 <h1>Edit Mood Record</h1>
 
-<form action="{{route('mood.update', $mood->id)}}" method="POST">
+<form action="{{route('mood.update', $mood->id)}}" method="POST" >
     @csrf
     <p>
         <strong>Mood:</strong> {{ ucfirst($mood->moodState) }}<br>
@@ -20,15 +25,15 @@
     </div>
     
 
-    <label for="note">Edit Note:</label><br>
-    <textarea name="note" id="note" rows="4" cols="50">{{ old('note', $mood->note) }}</textarea>
+    <label for="note" class="form-label" >Edit Note:</label><br>
+    <textarea name="note" id="note" rows="4" cols="40" class="form-control">{{ old('note', $mood->note) }}</textarea>
 
     <br><br>
-    <button type="submit">Update Note</button>
+    <button type="submit" class="btn btn-success">Update Note</button>
 </form><br>
-<div>
-    <a href="{{route('dashboard')}}">Return back to home</a>
+    <div>
+        <a href="{{route('dashboard')}}" class="btn btn-primary">Return back to home</a>
+    </div>
 </div>
-
 </body>
 </html>

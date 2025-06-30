@@ -1,34 +1,47 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("You're logged in!") }}
+        <h2 class="h4 text-dark text-center">
+            {{("You're logged in!")}}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                
-                <div>
-                    <a href="{{route('mood.create')}}">Record your mood for today</a>
+    <div class="py-4">
+        <div class="container d-flex flex-column align-items-center">
+            @if(session('success'))
+                <div class="alert alert-success w-100 text-center">
+                    {{session('success')}}
                 </div>
-                @if(session('success'))
-                <div style="color: green; font-size: 0.9rem;">{{ session('success') }}</div>
-                @endif
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger w-100 text-center">
+                    {{session('error')}}
+                </div>
+            @endif
 
-                @if(session('error'))
-                <div style="color: red;font-size: 0.9rem;">{{ session('error') }}</div>
-                @endif
-                </div><br>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <a href="{{ route('mood.all') }}">View My Mood Records</a><br><br>
-
-                </div>   <br>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <a href="{{ route('trash') }}">Trash/Bin</a> 
-            </div><br>
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <a href="{{ route('mood.weeklychart') }}">Chart</a> 
+            <div class="card mb-3 w-75">
+                <div class="card-body text-center">
+                    <a href="{{route('mood.create')}}" class="btn btn-primary btn-lg">Record your mood for today</a>
+                </div>
+            </div>
+            <div class="card mb-3 w-75">
+                <div class="card-body text-center">
+                    <a href="{{route('mood.all')}}" class="btn btn-secondary btn-lg">View My Mood Records</a>
+                </div>
+            </div>
+             <div class="card mb-3 w-75">
+                <div class="card-body text-center">
+                    <a href="{{route('moodOfMonth')}}" class="btn btn-secondary btn-lg">Mood of the month</a>
+                </div>
+            </div>
+            <div class="card mb-3 w-75">
+                <div class="card-body text-center">
+                    <a href="{{route('trash')}}" class="btn btn-secondary btn-lg">Trash / Bin</a>
+                </div>
+            </div>
+            <div class="card w-75">
+                <div class="card-body text-center">
+                    <a href="{{route('mood.weeklychart')}}" class="btn btn-secondary btn-lg">Chart</a>
+                </div>
             </div>
         </div>
     </div>

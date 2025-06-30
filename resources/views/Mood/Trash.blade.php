@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Trashed Entries</title>
 </head>
 <body>
+    <div class="container mt-4">
+
     <h1>Trash</h1>
 
     @if(session('success'))
@@ -14,7 +19,9 @@
     @if($trashedMoods->isEmpty())
         <p>No deleted mood records found.</p>
     @else
-        <table border="1">
+        <table class="table table-striped table-bordered table-hover">
+
+
             <thead>
                 <tr>
                     <th>Date of recording</th>
@@ -32,7 +39,7 @@
                         <td>
                             <form action="{{route('mood.restore', $mood->id)}}" method="POST">
                                 @csrf
-                                <button type="submit">Restore</button>
+                                <button type="submit" class="btn btn-success">Restore</button>
                             </form>
                         </td>
                     </tr>
@@ -43,12 +50,12 @@
 
     <br>
     <div>
-        <a href="{{route('mood.all')}}"><button>Back to All Records</button></a>
-
+        <a href="{{route('mood.all')}}" class="btn btn-primary">Back to All Records</a>
     </div><br>
     <div>
-        <a href="{{route('dashboard')}}"><button>Home</button></a>
+        <a href="{{route('dashboard')}}" class="btn btn-primary">Home</a>
     </div>
-    
+    </div>
+
 </body>
 </html>

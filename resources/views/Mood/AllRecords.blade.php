@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <meta charset="UTF-8">
     <title>All Mood Records</title>
 </head>
 <body>
-    <div style="margin-bottom: 1rem;">
-        <form action="{{route('mood.search')}}" method="GET" style="display: inline;">
-            <label for="search_date">Search by Date:</label>
-            <input type="string" id="search_date" name="date" value="{{request('date')}}">
-            <button type="submit">Search</button>
-        </form>
+
+    <div class="container mt-4">
+        <div style="margin-bottom: 1rem;">
+
+        <form action="{{ route('mood.search') }}" method="GET" class="row g-3 mb-3">
+    <div class="col-md-6">
+        <label for="search_date" class="form-label">Search by Date:</label>
+        <input type="text" id="search_date" name="date" class="form-control form-control-lg" value="{{ request('date') }}">
     </div>
-<div>
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</form>
+
+
+    </div>
+    <div>
     <p style="color: green;font-size: 1.2rem;">*You can also search date with filter</p>
 </div>
     <div style="margin-bottom: 1rem;">
@@ -23,11 +35,9 @@
             <label for="end_date">End Date:</label>
             <input type="date" id="end_date" name="end_date" value="{{request('end_date') }}">
 
-            <button type="submit">Filter</button><br><br>
+            <button type="submit" class="btn btn-primary">Filter</button><br><br><br>
 
-            <a href="{{ route('mood.all') }}">
-                <button type="button">Reset List</button>
-            </a>
+            <a href="{{route('mood.all')}}" class="btn btn-success">Reset List</a>
         </form>
     </div>
 <!--Success and error messages-->
@@ -67,7 +77,8 @@
     @endif
 
 
-    <table border="1" style="width: 100%; border-collapse: collapse;">
+    <table class="table table-striped table-bordered table-hover">
+
         <thead>
             <tr>
                 <th>Details</th>
@@ -87,13 +98,11 @@
                     <td>{{ ucfirst($mood->moodState) }}</td>
                     <td>{{ $mood->note ?? '—' }}</td>
                     <td>
-                        <a href="{{route('mood.edit', $mood->id)}}">
-                            <button type="button">Edit</button>
-                        </a>
+                        <a href="{{route('mood.edit', $mood->id)}}" class="btn btn-warning">Edit</a>
                         <form action="{{route('mood.delete', $mood->id)}}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -107,18 +116,16 @@
         </tbody>
     </table>
     <br>
-    <a href="{{route('dashboard')}}">
-        <button type="button">Home</button></a><br><br>
+    <a href="{{route('mood.downloadRecord')}}" class="btn btn-primary">Download a copy of your Mood Entries</a><br><br><br>
+    <a href="{{route('dashboard')}}" class="btn btn-primary">Home</a><br><br>
 
         <a href="{{route('trash')}}">
-        <button type="button">Trash</button></a><br><br>
-        <a href="{{route('moodOfMonth')}}">
-        <button type="button">Your Mood Of The Month</button></a>
+        <button type="button" class="btn btn-primary">Trash</button></a><br><br>
+        <a href="{{route('moodOfMonth')}}" class="btn btn-primary">Your Mood Of The Month</a>
 
-        <a href="{{route('mood.downloadRecord')}}"><br><br>
-    <button type="button">Download Mood Entries info</button>
-</a>
+        
 
+</div>
 
 </body>
 </html>

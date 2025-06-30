@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Mood of the Month</title>
 </head>
 <body>
+    <div class="container mt-4">
+
     <h1>Mood of the Month Report</h1>
     <br>
 
@@ -20,7 +25,8 @@
 
     @if($totalEntries > 0)
         <h3>All moods in the past 30 days ({{$totalEntries}} entries):</h3>
-        <table border="1" style="border-collapse: collapse; width: 50%;">
+        <table border="1" style="width:100%; border-collapse: collapse;">
+
             <thead>
                 <tr>
                     <th>Mood</th>
@@ -39,7 +45,8 @@
     @endif
 
     <br><br>
-    <a href="{{route('dashboard')}}">
-        <button type="button">Back to Dashboard</button></a>
+    <a href="{{route('dashboard')}}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+
 </body>
 </html>
